@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 const TicTacToe = () => {
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const initialSquares = Array(9).fill(null);
+
+  const [squares, setSquares] = useState(initialSquares);
   const [xIsNext, setXIsNext] = useState(true);
 
   useEffect(() => {
@@ -17,7 +19,7 @@ const TicTacToe = () => {
       if (emptySquares.length > 0) {
         const randomIndex = Math.floor(Math.random() * emptySquares.length);
         const computerMove = emptySquares[randomIndex];
-        setTimeout(() => handleClick(computerMove), 500); // Optional delay for a more natural feel
+        setTimeout(() => handleClick(computerMove), 500); // delay for a more natural feel
       }
     }
   }, [squares, xIsNext]);
@@ -30,6 +32,11 @@ const TicTacToe = () => {
     newSquares[i] = xIsNext ? 'X' : 'O';
     setSquares(newSquares);
     setXIsNext(!xIsNext);
+  };
+
+  const handleReset = () => {
+    setSquares(initialSquares);
+    setXIsNext(true);
   };
 
   const renderSquare = (i) => (
@@ -72,6 +79,7 @@ const TicTacToe = () => {
       <div className="game-info">
         <div>{status}</div>
       </div>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 };
