@@ -6,8 +6,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import TicTacToe from './Pages/ticTacToe.jsx';
+
 import MemoryMatchingGame from './Pages/MemoryMatchingGame.jsx';
+import TicTacToe from './Pages/TicTacToe.jsx';
 
 const router = createBrowserRouter([
   {
