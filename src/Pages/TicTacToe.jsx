@@ -7,19 +7,10 @@ const TicTacToe = () => {
   const [xIsNext, setXIsNext] = useState(true);
 
   useEffect(() => {
-    // If it's the computer's turn, make a random move
     if (!xIsNext) {
-      const emptySquares = squares.reduce((acc, value, index) => {
-        if (!value) {
-          acc.push(index);
-        }
-        return acc;
-      }, []);
-
-      if (emptySquares.length > 0) {
-        const randomIndex = Math.floor(Math.random() * emptySquares.length);
-        const computerMove = emptySquares[randomIndex];
-        setTimeout(() => handleClick(computerMove), 500); // delay for a more natural feel
+      const bestMove = findBestMove(squares, 'O'); // Computer is 'O'
+      if (bestMove !== -1) {
+        setTimeout(() => handleClick(bestMove), 500); // delay for a more natural feel
       }
     }
   }, [squares, xIsNext]);
@@ -104,4 +95,77 @@ const calculateWinner = (squares) => {
   return null;
 };
 
+const isMovesLeft = (squares) => {
+  return squares.some((square) => square === null);
+};
+
+const evaluate = (squares) => {
+  const winner = calculateWinner(squares);
+  if (winner === 'X') return -1;
+  if (winner === 'O') return 1;
+  return 0;
+};
+
+const findBestMove = (squares, player) => {
+  let bestVal = -Infinity;
+  let bestMove = -1;
+
+  // Check if the center square is available and prioritize it
+  if (squares[4] === null) {
+    return 4;
+  }
+
+  for (let i = 0; i < squares.length; i++) {
+    if (squares[i] === null) {
+      squares[i] = player;
+      const moveVal = minimax(squares, 0, -Infinity, Infinity, false, player === 'O');
+      squares[i] = null;
+
+      if (moveVal > bestVal) {
+        bestMove = i;
+        bestVal = moveVal;
+      }
+    }
+  }
+
+  return bestMove;
+};
+
+const minimax = (squares, depth, alpha, beta, isMaximizing, isComputer) => {
+  const score = evaluate(squares);
+
+  if (score !== 0) {
+    return isComputer ? score - depth : depth - score;
+  }
+
+  if (!isMovesLeft(squares)) {
+    return 0;
+  }
+
+  if (isMaximizing) {
+    let best = -Infinity;
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[i] === null) {
+        squares[i] = isComputer ? 'O' : 'X';
+        best = Math.max(best, minimax(squares, depth + 1, alpha, beta, !isMaximizing, isComputer));
+        alpha = Math.max(alpha, best);
+        squares[i] = null;
+        if (beta <= alpha) break; // alpha-beta pruning
+      }
+    }
+    return best;
+  } else {
+    let best = Infinity;
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[i] === null) {
+        squares[i] = isComputer ? 'X' : 'O';
+        best = Math.min(best, minimax(squares, depth + 1, alpha, beta, !isMaximizing, isComputer));
+        beta = Math.min(beta, best);
+        squares[i] = null;
+        if (beta <= alpha) break; // alpha-beta pruning
+      }
+    }
+    return best;
+  }
+};
 export default TicTacToe;
