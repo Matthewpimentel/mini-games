@@ -9,6 +9,8 @@ import { FaCrosshairs } from "react-icons/fa";
 function App() {
 
   return (
+    <div className='home-container'>
+      <h1>Minigames Hub</h1>
     <div className='home'>
       <div className='button-container'>
         <Link to="/tictactoe"><button><GiTicTacToe size={40} /></button></Link>
@@ -22,6 +24,7 @@ function App() {
        <Link to="/aimtrainer"><button><FaCrosshairs size={40} /></button></Link>
         <span>Aim Trainer</span>
       </div>
+    </div>
     </div>
   )
 }
