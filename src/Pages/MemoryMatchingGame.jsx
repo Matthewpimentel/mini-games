@@ -9,6 +9,8 @@ import {
   GiBottleCap,
   GiBrokenHeart,
 } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const MemoryMatchingGame = () => {
   const symbols = [
@@ -126,13 +128,16 @@ const MemoryMatchingGame = () => {
   };
 
   return (
-    <div className="memory-game">
+    <div className='general-container'>
+            <Link to="/"><IoMdArrowRoundBack size={40} className='back-button'/></Link>
+       <div className="memory-game">
       {renderRows()}
       <div className="game-info">
         <div>{`Matched pairs: ${matchedPairs.length}/${symbols.length}`}</div>
         <div>{`Time elapsed: ${timer.seconds}.${timer.milliseconds} seconds`}</div> {/* Display time elapsed */}
       </div>
       <button onClick={handleReset}>Reset</button>
+    </div>
     </div>
   );
 };

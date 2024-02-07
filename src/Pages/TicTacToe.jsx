@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 const TicTacToe = () => {
   const initialSquares = Array(9).fill(null);
@@ -49,29 +51,33 @@ const TicTacToe = () => {
   }
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <div className="board-row">
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
+    <div className='general-container'>
+      <Link to="/"><IoMdArrowRoundBack size={40} className='back-button'/></Link>
+      <div className="game">
+        <div className="game-board">
+          <div className="board-row">
+            {renderSquare(0)}
+            {renderSquare(1)}
+            {renderSquare(2)}
+          </div>
+          <div className="board-row">
+            {renderSquare(3)}
+            {renderSquare(4)}
+            {renderSquare(5)}
+          </div>
+          <div className="board-row">
+            {renderSquare(6)}
+            {renderSquare(7)}
+            {renderSquare(8)}
+          </div>
         </div>
-        <div className="board-row">
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
+        <div className="game-info">
+          <div>{status}</div>
+          <button onClick={handleReset}>Reset</button>
         </div>
-        <div className="board-row">
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
-        </div>
-      </div>
-      <div className="game-info">
-        <div>{status}</div>
-        <button onClick={handleReset}>Reset</button>
       </div>
     </div>
+
   );
 };
 

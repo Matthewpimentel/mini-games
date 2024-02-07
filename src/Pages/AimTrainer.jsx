@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaCrosshairs } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const AimTrainerPlayField = () => {
     const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
@@ -78,7 +80,9 @@ const AimTrainerPlayField = () => {
     };
 
     return (
-        <div className='aim-trainer-container'>
+        <div className='general-container'>
+            <Link to="/"><IoMdArrowRoundBack size={40} className='back-button'/></Link>
+             <div className='aim-trainer-container'>
             <div className="aim-trainer-play-field" style={{ position: 'relative' }}>
                 {/* Render button at the specified position */}
                 <button className="spawn-button" style={{ position: 'absolute', left: buttonPosition.x, top: buttonPosition.y }}>
@@ -100,6 +104,7 @@ const AimTrainerPlayField = () => {
                     </div>
                 </div>
             )}
+        </div>
         </div>
     );
 };
