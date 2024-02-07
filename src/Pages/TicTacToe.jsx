@@ -69,8 +69,8 @@ const TicTacToe = () => {
       </div>
       <div className="game-info">
         <div>{status}</div>
+        <button onClick={handleReset}>Reset</button>
       </div>
-      <button onClick={handleReset}>Reset</button>
     </div>
   );
 };

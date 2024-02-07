@@ -9,6 +9,7 @@ import {
 
 import MemoryMatchingGame from './Pages/MemoryMatchingGame.jsx';
 import TicTacToe from './Pages/TicTacToe.jsx';
+import AimTrainer from './Pages/AimTrainer.jsx';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/memorymatching",
     element: <MemoryMatchingGame/>
+  },
+  {
+    path: "/aimtrainer",
+    element: <AimTrainer/>
   }
 ]);
 
